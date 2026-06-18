@@ -1,0 +1,6 @@
+{
+  "name": "StudyMate AI",
+  "description": "A fully local on-device AI academic tutor, PDF document reader, and exam prep companion.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
