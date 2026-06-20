@@ -16,14 +16,23 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Grant Execute Permission
-        run: chmod +x gradlew
-
-      - name: Compile Debug APK
-        run: ./gradlew assembleDebug --no-daemon
+      - name: Handle Gradle Wrapper and Compile
+        run: |
+          if [ -f "gradlew" ]; then
+            chmod +x gradlew
+            ./gradlew assembleDebug --no-daemon
+          elif [ -f "app/gradlew" ]; then
+            chmod +x app/gradlew
+            cd app && ./gradlew assembleDebug --no-daemon
+          else
+            echo "Gradle wrapper missing, generating fresh native system wrapper..."
+            gradle wrapper
+            chmod +x gradlew
+            ./gradlew assembleDebug --no-daemon
+          fi
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: StudyMate-Debug-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: "**/build/outputs/apk/debug/app-debug.apk"
