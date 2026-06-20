@@ -44,7 +44,8 @@ android {
       signingConfig = signingConfigs.getByName("release")
     }
     debug {
-     //signingConfig = signingConfigs.getByName("debugConfig")
+      // Disabled to prevent local signing key missing crashes on cloud servers
+      // signingConfig = signingConfigs.getByName("debugConfig")
     }
   }
   compileOptions {
